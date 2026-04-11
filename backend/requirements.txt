@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+python-multipart
+radon
+scikit-learn
+numpy
+reportlab
+websockets
+javalang
+pycparser
+aiofiles

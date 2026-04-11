@@ -1,0 +1,25 @@
+{
+  "students": [
+    "ppp"
+  ],
+  "similarity_matrix": {},
+  "quality": {
+    "ppp": {
+      "cyclomatic_complexity": 1,
+      "num_functions": 1,
+      "avg_function_length": 5.0,
+      "max_function_length": 5.0,
+      "comment_density": 0.0,
+      "total_lines": 6,
+      "code_lines": 5,
+      "comment_lines": 0,
+      "quality_score": 80,
+      "bugs": [],
+      "language": "c",
+      "code": "#include <stdio.h>\n\nint main() {\n    printf(\"Hello World\")   // missing semicolon\n    return 0;\n}\n"
+    }
+  },
+  "detected_languages": {
+    "ppp": "c"
+  }
+}

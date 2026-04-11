@@ -1,0 +1,25 @@
+{
+  "students": [
+    "test"
+  ],
+  "similarity_matrix": {},
+  "quality": {
+    "test": {
+      "cyclomatic_complexity": 1,
+      "num_functions": 2,
+      "avg_function_length": 5.5,
+      "max_function_length": 5.5,
+      "comment_density": 0.0,
+      "total_lines": 13,
+      "code_lines": 11,
+      "comment_lines": 0,
+      "quality_score": 80,
+      "bugs": [],
+      "language": "c",
+      "code": "#include <not_a_real_header.h> // Non-existent header\n\nint main() {\n    int x = 10\n    printf(\"%d\", x); // Missing semicolon above\n    return 0;\n}\n#include <stdio.h>\n\nint main() {\n    printf(\"Hello World\")   // missing semicolon\n    return 0;\n}\n"
+    }
+  },
+  "detected_languages": {
+    "test": "c"
+  }
+}
