@@ -1,0 +1,14 @@
+# Normalize line endings: blobs are always LF, regardless of the contributor's OS.
+* text=auto eol=lf
+
+# Windows batch launchers must keep CRLF or cmd.exe can mis-parse them.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary assets — never normalize or diff as text.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.zip binary
