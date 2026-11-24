@@ -1,6 +1,9 @@
 import axios from 'axios'
 
-const BASE = 'http://localhost:8000'
+// Base URLs default to localhost; override them in frontend/.env.local
+// (see .env.example) when the backend runs on another host or port.
+const BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000'
+const WS_BASE = import.meta.env.VITE_WS_BASE || BASE.replace(/^http/, 'ws')
 
 export const api = {
   upload: (formData) =>
@@ -20,5 +23,5 @@ export const api = {
   reportCsvUrl: (sessionId) => `${BASE}/api/report/${sessionId}/csv`,
 
   openProgressWs: (sessionId) =>
-    new WebSocket(`ws://localhost:8000/ws/progress/${sessionId}`),
+    new WebSocket(`${WS_BASE}/ws/progress/${sessionId}`),
 }
