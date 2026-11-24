@@ -197,9 +197,9 @@ Create `frontend/.env.local` (git-ignored) if the backend runs on another host:
 VITE_API_BASE=http://192.168.1.20:8000
 ```
 
-> Pointing the browser at an unfamiliar host also requires tightening the CORS
-> `allow_origins` list in `backend/main.py`; the default is permissive for local
-> development only.
+> Pointing the browser at another host also means restricting who may call the API:
+> set `ALLOWED_ORIGINS` (comma-separated) instead of leaving the permissive default —
+> see `backend/.env.example`.
 
 ---
 
