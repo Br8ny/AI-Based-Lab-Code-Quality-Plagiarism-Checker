@@ -29,9 +29,18 @@ from core.report_generator import generate_pdf, generate_csv
 
 app = FastAPI(title="AI Code Quality & Plagiarism Checker API", version="1.0.0")
 
+# Comma-separated list of browser origins allowed to call the API.
+# Permissive by default so the Vite dev server works out of the box; set
+# ALLOWED_ORIGINS in backend/.env when deploying (see backend/.env.example).
+ALLOWED_ORIGINS = [
+    origin.strip()
+    for origin in os.getenv("ALLOWED_ORIGINS", "*").split(",")
+    if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
