@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Brain, Code2, GitBranch, Sparkles, CheckCircle2, AlertCircle } from 'lucide-react'
@@ -21,6 +21,28 @@ export default function ProcessingPage() {
   const [done, setDone] = useState(false)
   const [error, setError] = useState(null)
   const wsRef = useRef(null)
+
+  const pollResults = useCallback(async () => {
+    let attempts = 0
+    const interval = setInterval(async () => {
+      attempts++
+      try {
+        const res = await api.getResults(sessionId)
+        if (res.data.status === 'done') {
+          clearInterval(interval)
+          setResults(res.data.data)
+          setCurrentStep(5)
+          setDone(true)
+          setTimeout(() => navigate('/dashboard'), 1500)
+        }
+        if (res.data.status === 'error') {
+          clearInterval(interval)
+          setError('Analysis failed')
+        }
+      } catch { /* transient network error — keep polling until the attempt cap */ }
+      if (attempts > 60) clearInterval(interval)
+    }, 1000)
+  }, [sessionId, navigate, setResults])
 
   useEffect(() => {
     if (!sessionId) { navigate('/'); return }
@@ -55,29 +77,7 @@ export default function ProcessingPage() {
     ws.onclose = () => {}
 
     return () => { ws.close() }
-  }, [sessionId])
-
-  const pollResults = async () => {
-    let attempts = 0
-    const interval = setInterval(async () => {
-      attempts++
-      try {
-        const res = await api.getResults(sessionId)
-        if (res.data.status === 'done') {
-          clearInterval(interval)
-          setResults(res.data.data)
-          setCurrentStep(5)
-          setDone(true)
-          setTimeout(() => navigate('/dashboard'), 1500)
-        }
-        if (res.data.status === 'error') {
-          clearInterval(interval)
-          setError('Analysis failed')
-        }
-      } catch {}
-      if (attempts > 60) clearInterval(interval)
-    }, 1000)
-  }
+  }, [sessionId, pollResults, navigate, setResults])
 
   const progress = done ? 100 : Math.round((currentStep / 4) * 100)
 

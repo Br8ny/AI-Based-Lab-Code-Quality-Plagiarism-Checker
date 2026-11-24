@@ -12,7 +12,7 @@ const saveUsers = (users) => localStorage.setItem('ac_users', JSON.stringify(use
 // ─── Auth Store ───────────────────────────────────────────────────────────────
 export const useAuthStore = create(
   persist(
-    (set, get) => ({
+    (set) => ({
       user: null,      // { id, name, email, role, createdAt }
       authError: null,
 

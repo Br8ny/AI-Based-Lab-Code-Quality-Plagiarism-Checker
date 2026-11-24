@@ -8,6 +8,31 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, Legend
 import { toast } from 'react-hot-toast'
 import NoDataState from '../components/NoDataState'
 
+const RISK_COLORS = { high: '#ef4444', medium: '#eab308', low: '#22c55e' }
+
+const CustomTooltip = ({ active, payload }) => {
+  if (!active || !payload?.length) return null
+  const d = payload[0].payload
+  return (
+    <div className="glass-card px-4 py-3 text-xs shadow-xl">
+      <div className="font-semibold text-white mb-1">{d.fullName}</div>
+      {payload.map((p, i) => (
+        <div key={i} className="flex justify-between gap-4" style={{ color: p.color }}>
+          <span className="text-white/50">{p.name}</span>
+          <span className="font-mono font-bold">{p.value}%</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+const SortIcon = ({ col, sortBy, sortDir }) => {
+  if (sortBy !== col) return <ChevronDown className="w-3 h-3 opacity-20" />
+  return sortDir === 'desc'
+    ? <ChevronDown className="w-3 h-3 text-blue-400" />
+    : <ChevronUp className="w-3 h-3 text-blue-400" />
+}
+
 export default function ReportsPage() {
   const navigate        = useNavigate()
   const results         = useStore(s => s.results)
@@ -60,7 +85,6 @@ export default function ReportsPage() {
     toast.success('CSV download started!')
   }
 
-  const RISK_COLORS = { high: '#ef4444', medium: '#eab308', low: '#22c55e' }
   const chartData = sorted.map(s => ({
     name:        s.name.length > 9 ? s.name.slice(0, 9) + '…' : s.name,
     fullName:    s.name,
@@ -68,29 +92,6 @@ export default function ReportsPage() {
     quality:     s.qualityScore,
     risk:        s.risk,
   }))
-
-  const CustomTooltip = ({ active, payload }) => {
-    if (!active || !payload?.length) return null
-    const d = payload[0].payload
-    return (
-      <div className="glass-card px-4 py-3 text-xs shadow-xl">
-        <div className="font-semibold text-white mb-1">{d.fullName}</div>
-        {payload.map((p, i) => (
-          <div key={i} className="flex justify-between gap-4" style={{ color: p.color }}>
-            <span className="text-white/50">{p.name}</span>
-            <span className="font-mono font-bold">{p.value}%</span>
-          </div>
-        ))}
-      </div>
-    )
-  }
-
-  const SortIcon = ({ col }) => {
-    if (sortBy !== col) return <ChevronDown className="w-3 h-3 opacity-20" />
-    return sortDir === 'desc'
-      ? <ChevronDown className="w-3 h-3 text-blue-400" />
-      : <ChevronUp className="w-3 h-3 text-blue-400" />
-  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -182,7 +183,7 @@ export default function ReportsPage() {
                       ${sortable ? 'cursor-pointer hover:text-white/60 select-none' : ''}`}>
                     <div className="flex items-center gap-1">
                       {label}
-                      {sortable && <SortIcon col={key} />}
+                      {sortable && <SortIcon col={key} sortBy={sortBy} sortDir={sortDir} />}
                     </div>
                   </th>
                 ))}
