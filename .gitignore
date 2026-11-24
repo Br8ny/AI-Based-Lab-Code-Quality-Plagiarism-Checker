@@ -1,0 +1,49 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# ---- Runtime data (regenerated on every analysis run) ----
+backend/uploads/
+backend/results/
+backend/reports/
+
+# ---- Node / Vite ----
+node_modules/
+frontend/dist/
+frontend/dist-ssr/
+.vite/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ---- Environment / secrets ----
+.env
+.env.*
+!.env.example
+
+# ---- Editors & OS ----
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Tests & coverage ----
+.pytest_cache/
+.coverage
+htmlcov/
