@@ -12,6 +12,7 @@ the machine and there is no cloud service to configure.
 ![Backend](https://img.shields.io/badge/backend-FastAPI-009688)
 ![Frontend](https://img.shields.io/badge/frontend-React%2019%20%2B%20Vite-61dafb)
 ![Languages](https://img.shields.io/badge/languages-Python%20%C2%B7%20C%2FC%2B%2B%20%C2%B7%20Java-informational)
+[![CI](https://github.com/Br8ny/AI-Based-Lab-Code-Quality-Plagiarism-Checker/actions/workflows/ci.yml/badge.svg)](https://github.com/Br8ny/AI-Based-Lab-Code-Quality-Plagiarism-Checker/actions)
 
 ---
 
